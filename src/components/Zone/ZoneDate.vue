@@ -1,12 +1,33 @@
 <template>
-  <span style="font-size: 1.2rem;" :v-model="date">{{ date }}</span>
+  <span style="font-size: 1.2rem;" :v-model="parsedDate"
+    >{{ parsedDate.day }} {{ months[parsedDate.month] }} {{ parsedDate.year }}
+  </span>
 </template>
 
 <script>
 export default {
+  props: ["date"],
   data() {
     return {
-      date: "15 May 1998"
+      parsedDate: {
+        day: this.date.getDate(),
+        month: this.date.getMonth(),
+        year: this.date.getFullYear()
+      },
+      months: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ]
     };
   }
 };
