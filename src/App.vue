@@ -1,60 +1,38 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+  <div>
+    <nav class="navbar navbar-expand-lg p-4">
+      <img
+        src="/src/assets/time-zone.png"
+        class="border border-2 rounded-circle"
+        style="width: 3rem; height: 3rem;"
+      />
+      <span class="text-white" style="margin-left: 1rem;"
+        ><h3>Every Time Zone</h3></span
+      >
+    </nav>
+    <div class="mt-3 mb-5">
+      <div class="badge bg-warning mt-5 mx-auto" v-drag:x>
+        <span class="p-3">horizontal</span>
+      </div>
+      <zone></zone>
+    </div>
+    <footer class="navbar p-3">
+      <span class="text-white"><strong>İlkay Yüksel</strong></span>
+    </footer>
   </div>
 </template>
 
 <script>
+import Zone from "../src/components/Zone/Zone";
 export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
+  components: {
+    Zone
   }
-}
+};
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
+<style scoped>
+.navbar {
+  background-color: #1c2c54;
 }
 </style>
