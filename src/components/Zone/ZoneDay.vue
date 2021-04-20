@@ -11,7 +11,7 @@
       style="width: 7%"
     ></div>
     <div class="progress-bar noon p-2" role="progressbar" style="width: 42%">
-      <zone-date class="text-white"></zone-date>
+      <zone-date class="text-white" :date="date"></zone-date>
     </div>
     <div
       class="progress-bar dawnAfterNoon p-2"
@@ -31,7 +31,8 @@ import ZoneDate from "./ZoneDate";
 export default {
   components: {
     ZoneDate
-  }
+  },
+  props: ["date"]
 };
 </script>
 

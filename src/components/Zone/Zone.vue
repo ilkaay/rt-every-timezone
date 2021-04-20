@@ -11,7 +11,7 @@
         :zoneInfoDetail="zoneInfo.detail"
       ></zone-info>
       <div v-for="index in 4" :key="index" class="col">
-        <zone-day></zone-day>
+        <zone-day :date="generateNextDayDate(index - 1)"></zone-day>
       </div>
     </div>
   </div>
@@ -21,12 +21,18 @@
 import ZoneDay from "./ZoneDay";
 import ZoneInfo from "./ZoneInfo";
 import ZoneTime from "./ZoneTime";
+import moment from "moment";
 
 export default {
   components: {
     ZoneDay,
     ZoneInfo,
     ZoneTime
+  },
+  methods: {
+    generateNextDayDate(count) {
+      return moment().add(count, "days")._d;
+    }
   }
 };
 </script>

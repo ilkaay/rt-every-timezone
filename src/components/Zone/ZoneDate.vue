@@ -1,17 +1,18 @@
 <template>
-  <span style="font-size: 1.2rem;" :v-model="date"
-    >{{ date.day }} {{ months[date.month] }} {{ date.year }}
+  <span style="font-size: 1.2rem;" :v-model="parsedDate"
+    >{{ parsedDate.day }} {{ months[parsedDate.month] }} {{ parsedDate.year }}
   </span>
 </template>
 
 <script>
 export default {
+  props: ["date"],
   data() {
     return {
-      date: {
-        day: new Date().getDate(),
-        month: new Date().getMonth(),
-        year: new Date().getFullYear()
+      parsedDate: {
+        day: this.date.getDate(),
+        month: this.date.getMonth(),
+        year: this.date.getFullYear()
       },
       months: [
         "Jan",
