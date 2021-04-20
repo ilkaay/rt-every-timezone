@@ -56,28 +56,53 @@ export default {
       zoneInfos: [
         {
           flag: "/src/flag/us.svg",
+          city: "Baker Island, US Minor Outlying Islands",
+          detail: "UTC-12"
+        },
+        {
+          flag: "/src/flag/newZealand.svg",
+          city: "Niue, New Zealand",
+          detail: "UTC-11"
+        },
+        {
+          flag: "/src/flag/france.svg",
+          city: "French Polynesia, France",
+          detail: "UTC-10"
+        },
+        {
+          flag: "/src/flag/us.svg",
+          city: "Alaska(US)",
+          detail: "UTC-9"
+        },
+        {
+          flag: "/src/flag/canada.svg",
+          city: "British Columbia, Canada",
+          detail: "UTC-8"
+        },
+        {
+          flag: "/src/flag/us.svg",
           city: "Pacific Time(US)",
-          detail: "PDT UTC-7"
+          detail: "UTC-7"
         },
         {
           flag: "/src/flag/us.svg",
           city: "Mountain Time(US)",
-          detail: "MDT UTC-6"
+          detail: "UTC-6"
         },
         {
           flag: "/src/flag/us.svg",
           city: "Central Time(US)",
-          detail: "CDT UTC-5"
+          detail: "UTC-5"
         },
         {
           flag: "/src/flag/us.svg",
           city: "Eastern Time(US)",
-          detail: "EDT UTC-4"
+          detail: "UTC-4"
         },
         {
           flag: "/src/flag/brazil.svg",
           city: "Brazil Rio de Janerio, Brazil",
-          detail: "-03 UTC-3"
+          detail: "UTC-3"
         },
         {
           flag: "/src/flag/utc.svg",
@@ -87,57 +112,72 @@ export default {
         {
           flag: "/src/flag/london.svg",
           city: "London, United Kingdom",
-          detail: "BST UTC+1"
+          detail: "UTC+1"
         },
         {
           flag: "/src/flag/berlin.svg",
           city: "Berlin, Germany",
-          detail: "CEST UTC+2"
+          detail: "UTC+2"
         },
         {
           flag: "/src/flag/moscow.svg",
           city: "Moscow, Russian Federation",
-          detail: "MSK UTC+3"
+          detail: "UTC+3"
         },
         {
           flag: "/src/flag/dubai.svg",
           city: "Dubai, United Arab Emirates",
-          detail: "+04 UTC+4"
+          detail: "UTC+4"
         },
         {
           flag: "/src/flag/mumbai.svg",
           city: "Mumbai, India",
-          detail: "IST UTC+5:30"
+          detail: "UTC+5:30"
+        },
+        {
+          flag: "/src/flag/bangladesh.svg",
+          city: " , Bangladesh",
+          detail: "UTC+6"
+        },
+        {
+          flag: "/src/flag/mumbai.svg",
+          city: " , Thailand",
+          detail: "UTC+7"
         },
         {
           flag: "/src/flag/singapore.svg",
           city: "Singapore, Singapore",
-          detail: "+08 UTC+8"
+          detail: "UTC+8"
         },
         {
           flag: "/src/flag/china.svg",
           city: "Beijing, China",
-          detail: "CST UTC+8"
+          detail: "UTC+8"
         },
         {
           flag: "/src/flag/china.svg",
           city: "China Time, China",
-          detail: "CST UTC+8"
+          detail: "UTC+8"
         },
         {
           flag: "/src/flag/tokyo.svg",
           city: "Tokyo, Japan",
-          detail: "JST UTC+9"
+          detail: "UTC+9"
         },
         {
           flag: "/src/flag/australia.svg",
           city: "Sydney, Australia",
-          detail: "AEST UTC+10"
+          detail: "UTC+10"
+        },
+        {
+          flag: "/src/flag/australia.svg",
+          city: "Norfolk Island, Australia",
+          detail: "UTC+11"
         },
         {
           flag: "/src/flag/newZealand.svg",
           city: "Auckland, New Zealand",
-          detail: "NZST UTC+12"
+          detail: "UTC+12"
         }
       ]
     };
