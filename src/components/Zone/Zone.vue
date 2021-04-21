@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div>
+      <zone-time
+        v-for="value in 96"
+        :key="value"
+        class="col"
+        :quarterCount="value - 1"
+      ></zone-time>
+    </div>
     <div
       v-for="zoneInfo in this.$store.getters.zoneInfos"
       :key="zoneInfo.key"
@@ -8,10 +16,10 @@
       <zone-info
         :zoneInfoFlag="zoneInfo.flag"
         :zoneInfoCity="zoneInfo.city"
-        :zoneInfoDetail="zoneInfo.detail"
+        :zoneInfoUTC="zoneInfo.UTC"
       ></zone-info>
-      <div v-for="index in 4" :key="index" class="col">
-        <zone-day :date="generateNextDayDate(index - 1)"></zone-day>
+      <div v-for="index in 5" :key="index" class="col">
+        <zone-day :date="generateNextDayDate(index - 3)"> </zone-day>
       </div>
     </div>
   </div>

@@ -82,11 +82,6 @@ export const store = new Vuex.Store({
         UTC: "+4"
       },
       {
-        flag: "/src/flag/mumbai.svg",
-        city: "Mumbai, India",
-        UTC: "+5:30"
-      },
-      {
         flag: "/src/flag/bangladesh.svg",
         city: " , Bangladesh",
         UTC: "+6"
