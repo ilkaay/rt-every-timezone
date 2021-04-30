@@ -14,11 +14,18 @@
 
 <script>
 import moment from "moment";
+import "moment-timezone";
 export default {
+  props: ["zoneInfoTimeZone"],
   methods: {
     computedCount(index) {
-      const now = this.$store.getters.UTC;
-      return moment.unix(now.unix() + index * 60 * 15).format("HH:mm");
+      const now = moment(this.$store.getters.startingDate).utc(
+        this.zoneInfoTimeZone
+      );
+      return moment
+        .unix(now.unix() + index * 60 * 15)
+        .tz(this.zoneInfoTimeZone)
+        .format("HH:mm");
     }
   }
 };

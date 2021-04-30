@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div v-for="index in 3" :key="index" class="col">
-      <zone-times></zone-times>
+      <zone-times :zoneInfoTimeZone="zoneInfoTimeZone"></zone-times>
       <div class="progress rounded-pill h-100">
         <div
           class="progress-bar beforeDawn p-2"
@@ -43,6 +43,7 @@ import ZoneDate from "./ZoneDate";
 import ZoneTimes from "./ZoneTimes";
 import moment from "moment";
 export default {
+  props: ["zoneInfoTimeZone"],
   components: {
     ZoneDate,
     ZoneTimes

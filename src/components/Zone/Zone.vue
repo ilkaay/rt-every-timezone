@@ -8,9 +8,9 @@
       <zone-info
         :zoneInfoFlag="zoneInfo.flag"
         :zoneInfoCity="zoneInfo.city"
-        :zoneInfoUTC="zoneInfo.UTC"
+        :zoneInfoGMT="zoneInfo.GMT"
       ></zone-info>
-      <zone-days> </zone-days>
+      <zone-days :zoneInfoTimeZone="zoneInfo.timeZone"> </zone-days>
     </div>
   </div>
 </template>
