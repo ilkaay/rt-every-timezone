@@ -2,6 +2,7 @@ import Vuex from "vuex";
 import Vue from "vue";
 
 Vue.use(Vuex);
+import moment from "moment";
 
 export const store = new Vuex.Store({
   state: {
@@ -126,11 +127,15 @@ export const store = new Vuex.Store({
         city: "Auckland, New Zealand",
         UTC: "+12"
       }
-    ]
+    ],
+    UTC: moment(moment.parseZone().format("yyyy/MM/DD"))
   },
   getters: {
     zoneInfos: state => {
       return state.zoneInfos;
+    },
+    UTC: state => {
+      return state.UTC;
     }
   }
 });
