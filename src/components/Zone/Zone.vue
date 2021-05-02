@@ -3,7 +3,7 @@
     <div
       v-for="zoneInfo in this.$store.getters.zoneInfos"
       :key="zoneInfo.key"
-      class="row p-1 pt-5 mt-3 justify-content-center"
+      class="row p-1 mt-2 justify-content-center"
     >
       <zone-info
         :zoneInfoFlag="zoneInfo.flag"

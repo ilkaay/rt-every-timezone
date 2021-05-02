@@ -1,7 +1,7 @@
 <template>
-  <span style="font-size: 1.2rem;" :v-model="parsedDate"
-    >{{ parsedDate.day }} {{ months[parsedDate.month] }} {{ parsedDate.year }}
-  </span>
+  <div style="font-size: 1.2rem;" :v-model="parsedDate">
+    {{ parsedDate.day }} {{ months[parsedDate.month] }} {{ parsedDate.year }}
+  </div>
 </template>
 
 <script>

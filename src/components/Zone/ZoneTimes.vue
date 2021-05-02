@@ -3,10 +3,10 @@
     <div
       v-for="index in 96"
       :key="index"
-      class="d-inline-block zoneTime"
+      class="progress-bar col d-inline-block zoneTime"
       style="width: 1.0416%;"
+      role="progressbar"
     >
-      <!-- {{ computedCount(index) }}:{{ zoneTime }} -->
       {{ computedCount(index - 1) }}
     </div>
   </div>
