@@ -3,11 +3,11 @@
     <div
       v-for="index in 96"
       :key="index"
-      class="progress-bar col d-inline-block zoneTime"
+      class="progress-bar col d-inline-block bg-transparent zoneTime"
       style="width: 1.0416%;"
       role="progressbar"
     >
-      {{ computedCount(index - 1) }}
+      <span>{{ computedCount(index - 1) }}</span>
     </div>
   </div>
 </template>
@@ -36,6 +36,7 @@ export default {
   font-size: 1.5rem;
   color: transparent;
 }
+
 .zoneTime:hover {
   color: black;
 }

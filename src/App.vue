@@ -10,10 +10,8 @@
         ><h3>Every Time Zone</h3></span
       >
     </nav>
-    <div class="mt-3 mb-5">
-      <div class="badge bg-warning mt-5 mx-auto" v-drag:x>
-        <span class="p-3">horizontal</span>
-      </div>
+    <div class="mt-3 mb-5" style="user-select: none;">
+      <zones-time-line></zones-time-line>
       <zone></zone>
     </div>
     <footer class="navbar p-3">
@@ -24,9 +22,11 @@
 
 <script>
 import Zone from "../src/components/Zone/Zone";
+import ZonesTimeLine from "../src/components/ZonesTimeLine";
 export default {
   components: {
-    Zone
+    Zone,
+    ZonesTimeLine
   }
 };
 </script>

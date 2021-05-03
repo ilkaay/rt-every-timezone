@@ -10,7 +10,8 @@
         :zoneInfoCity="zoneInfo.city"
         :zoneInfoGMT="zoneInfo.GMT"
       ></zone-info>
-      <zone-days :zoneInfoTimeZone="zoneInfo.timeZone"> </zone-days>
+      <zone-times :zoneInfoTimeZone="zoneInfo.timeZone"></zone-times>
+      <zone-days> </zone-days>
     </div>
   </div>
 </template>
@@ -18,10 +19,12 @@
 <script>
 import ZoneInfo from "./ZoneInfo";
 import ZoneDays from "./ZoneDays";
+import ZoneTimes from "./ZoneTimes";
 export default {
   components: {
     ZoneDays,
-    ZoneInfo
+    ZoneInfo,
+    ZoneTimes
   }
 };
 </script>
