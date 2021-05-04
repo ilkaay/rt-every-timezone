@@ -1,24 +1,23 @@
 <template>
-  <div class="row">
+  <div
+    style="position:relative; display: flex; flex-direction: row; justify-content: space-evenly; "
+  >
     <div
-      v-for="index in 3"
+      v-for="index in 6"
       :key="index"
-      class="col progress bg-primary rounded-pill h-100"
+      class="bg-primary rounded-pill text-center"
+      :style="{ width: 300 + 'px' }"
+      style="position: relative; flex-shrink: 0; flex-grow: 0;"
     >
       <zone-date
-        class="text-white text-center m-1 w-100"
-        :date="generateNextDayDate(index - 2)"
+        class="text-white m-1 w-100"
+        :date="generateNextDayDate(index - 3)"
       ></zone-date>
     </div>
   </div>
 </template>
 
 <script>
-//  todo put additional 2 divs for the day before and day next
-// todo 3*div = screen_width but you will have 5 divs
-// todo calculate starting time like zone-times
-// todo use calculated time for rendering divs
-// todo update left position of div with using the time that you have calculated
 import ZoneDate from "./ZoneDate";
 import moment from "moment";
 export default {

@@ -2,7 +2,7 @@
   <span :class="{ leftPosition: leftPos, rightPosition: rightPos }"
     ><img
       :src="zoneInfoFlag"
-      style="width: 2rem; height: 2rem; padding: 3px;"
+      style="width: 2rem; height: 2rem; padding: 3px; ;"
       class="rounded-circle"
     />{{ zoneInfoCity }}
     <br class="d-lg-none" />
