@@ -22,6 +22,11 @@
 import ZoneDate from "./ZoneDate";
 import moment from "moment";
 export default {
+  data() {
+    return {
+      windowWidth: window.innerWidth
+    };
+  },
   components: {
     ZoneDate
   },
@@ -29,6 +34,9 @@ export default {
   methods: {
     generateNextDayDate(count) {
       return moment().add(count, "days")._d;
+    },
+    onResize() {
+      this.windowWidth = window.innerWidth;
     }
   },
   computed: {
@@ -36,10 +44,22 @@ export default {
       const timestampOfNow = moment.unix(this.now.tz(this.zoneInfoTimeZone));
       const offsetOfUtcInHours =
         moment.tz.zone(this.zoneInfoTimeZone).utcOffset(timestampOfNow) / 60;
-      console.log(offsetOfUtcInHours * (window.innerWidth / 96));
 
-      return offsetOfUtcInHours * (window.innerWidth / 96);
+      return offsetOfUtcInHours * (this.windowWidth / 96);
+    },
+    computedWindowWidth() {
+      console.log(window.innerWidth);
+      return window.innerWidth;
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      window.addEventListener("resize", this.onResize);
+    });
+  },
+
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onResize);
   }
 };
 </script>

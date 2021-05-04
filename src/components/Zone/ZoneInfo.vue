@@ -26,7 +26,7 @@ export default {
   },
   watch: {
     dragPosition(positionOfLine) {
-      if (positionOfLine < window.innerWidth / 2) {
+      if (positionOfLine < window.innerWidth / 3) {
         this.leftPos = true;
         this.rightPos = false;
       } else {
