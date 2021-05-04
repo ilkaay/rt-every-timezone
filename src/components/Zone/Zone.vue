@@ -17,7 +17,6 @@
 </template>
 
 <script>
-// todo if drag position < 50%, show info in the right, else show it in the left. (v-if with two zone-info)
 import ZoneInfo from "./ZoneInfo";
 import ZoneDays from "./ZoneDays";
 import ZoneTime from "./ZoneTime";
