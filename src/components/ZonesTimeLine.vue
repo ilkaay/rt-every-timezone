@@ -40,6 +40,7 @@ export default {
   position: absolute;
   left: 50%;
   height: 175rem;
+  z-index: 1;
 }
 .overlay {
   position: absolute;

@@ -1,13 +1,14 @@
 <template>
   <div
-    style="position:relative; display: flex; flex-direction: row; justify-content: space-evenly; "
+    :style="{ left: slideLeft + 'px' }"
+    style="position:relative; display: flex; justify-content: space-evenly;"
   >
     <div
       v-for="index in 6"
       :key="index"
       class="bg-primary rounded-pill text-center"
-      :style="{ width: 300 + 'px' }"
-      style="position: relative; flex-shrink: 0; flex-grow: 0;"
+      :style="{ width: 25 + 'vw' }"
+      style=" flex-shrink: 0; "
     >
       <zone-date
         class="text-white m-1 w-100"
@@ -24,9 +25,20 @@ export default {
   components: {
     ZoneDate
   },
+  props: ["now", "zoneInfoTimeZone"],
   methods: {
     generateNextDayDate(count) {
       return moment().add(count, "days")._d;
+    }
+  },
+  computed: {
+    slideLeft() {
+      const timestampOfNow = moment.unix(this.now.tz(this.zoneInfoTimeZone));
+      const offsetOfUtcInHours =
+        moment.tz.zone(this.zoneInfoTimeZone).utcOffset(timestampOfNow) / 60;
+      console.log(offsetOfUtcInHours * (window.innerWidth / 96));
+
+      return offsetOfUtcInHours * (window.innerWidth / 96);
     }
   }
 };

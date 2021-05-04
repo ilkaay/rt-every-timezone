@@ -23,14 +23,11 @@ export default {
       leftPos: 0
     };
   },
-  props: ["zoneInfoTimeZone"],
+  props: ["zoneInfoTimeZone", "now"],
   computed: {
     computedCount() {
-      const now = moment(this.$store.getters.startingDate).utc(
-        this.zoneInfoTimeZone
-      );
       return moment
-        .unix(now.unix() + this.index * 60 * 15)
+        .unix(this.now.unix() + this.index * 60 * 15)
         .tz(this.zoneInfoTimeZone)
         .format("HH:mm");
     },
@@ -42,7 +39,7 @@ export default {
     dragPosition(positionOfLine) {
       this.leftPos = positionOfLine + 10;
       const percent = positionOfLine / window.innerWidth;
-      const eachPercent = 1 / 288;
+      const eachPercent = 1 / 384;
       this.index = Math.floor((percent / eachPercent) % 96);
     }
   }
