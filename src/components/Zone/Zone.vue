@@ -10,21 +10,22 @@
         :zoneInfoCity="zoneInfo.city"
         :zoneInfoGMT="zoneInfo.GMT"
       ></zone-info>
-      <zone-times :zoneInfoTimeZone="zoneInfo.timeZone"></zone-times>
+      <zone-time :zoneInfoTimeZone="zoneInfo.timeZone"></zone-time>
       <zone-days> </zone-days>
     </div>
   </div>
 </template>
 
 <script>
+// todo if drag position < 50%, show info in the right, else show it in the left. (v-if with two zone-info)
 import ZoneInfo from "./ZoneInfo";
 import ZoneDays from "./ZoneDays";
-import ZoneTimes from "./ZoneTimes";
+import ZoneTime from "./ZoneTime";
 export default {
   components: {
     ZoneDays,
     ZoneInfo,
-    ZoneTimes
+    ZoneTime
   }
 };
 </script>

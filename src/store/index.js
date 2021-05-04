@@ -152,7 +152,8 @@ export const store = new Vuex.Store({
         GMT: "+12"
       }
     ],
-    startingDate: moment(moment.parseZone().format("yyyy/MM/DD"))
+    startingDate: moment(moment.parseZone().format("yyyy/MM/DD")),
+    dragPosition: ""
   },
   getters: {
     zoneInfos: state => {
@@ -160,6 +161,22 @@ export const store = new Vuex.Store({
     },
     startingDate: state => {
       return state.startingDate;
+    },
+    dragPosition: state => {
+      return state.dragPosition;
+    },
+    lineX: state => {
+      return state.lineX;
+    }
+  },
+  actions: {
+    updateDragPosition({ commit }, payload) {
+      commit("setDragPosition", payload);
+    }
+  },
+  mutations: {
+    setDragPosition(state, payload) {
+      state.dragPosition = payload;
     }
   }
 });

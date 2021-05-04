@@ -1,14 +1,15 @@
 <template>
   <div
-    class="badge mt-5 mx-auto rounded-pill zoneTimesLine"
-    style="position: relative; cursor: -webkit-zoom-grabbing;"
+    class="badge mt-5 zoneTimesLine bg-transparent overlay"
     v-drag:x
     @mousedown="dragging = true"
     @mousemove="doDrag"
     @mouseup="dragging = false"
   >
-    <div class="p-3 bg-transparent">your local time</div>
-    <div class="line" ref="line"></div>
+    <div class="p-3 rounded-pill d-inline-block">your local time</div>
+    <div class="w-100">
+      <div class="line" ref="line"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -24,7 +25,10 @@ export default {
       if (this.dragging) {
         this.x = event.pageX;
         const lineLocation = this.$refs.line.getClientRects()[0];
-        console.log((lineLocation.left + lineLocation.right) / 2);
+        this.$store.dispatch(
+          "updateDragPosition",
+          (lineLocation.left + lineLocation.right) / 2
+        );
       }
     }
   }
@@ -35,7 +39,15 @@ export default {
   width: 0.2rem;
   position: absolute;
   left: 50%;
-  height: 3075px;
+  height: 175rem;
+}
+.overlay {
+  position: absolute;
+  top: 4%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: -webkit-zoom-grabbing;
 }
 .zoneTimesLine:hover {
   cursor: pointer;

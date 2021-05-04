@@ -10,9 +10,9 @@
         ><h3>Every Time Zone</h3></span
       >
     </nav>
-    <div class="mt-3 mb-5" style="user-select: none;">
+    <div style="user-select: none;">
       <zones-time-line></zones-time-line>
-      <zone></zone>
+      <zone class="mt-5"></zone>
     </div>
     <footer class="navbar p-3">
       <span class="text-white"><strong>İlkay Yüksel</strong></span>
