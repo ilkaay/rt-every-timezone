@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="progress-bar col d-inline-block bg-transparent">
+    <div class="progress-bar d-inline-block">
       <span
         ref="timeSpan"
         class="text-dark"
@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       index: 0,
-      leftPos: 0
+      leftPos: window.innerWidth / 2 + 10
     };
   },
   props: ["zoneInfoTimeZone", "now"],

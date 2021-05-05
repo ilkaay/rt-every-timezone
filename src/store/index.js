@@ -153,7 +153,8 @@ export const store = new Vuex.Store({
       }
     ],
     startingDate: moment(moment.parseZone().format("yyyy/MM/DD")),
-    dragPosition: ""
+    dragPosition: "",
+    currentDragPosition: ""
   },
   getters: {
     zoneInfos: state => {
@@ -164,6 +165,9 @@ export const store = new Vuex.Store({
     },
     dragPosition: state => {
       return state.dragPosition;
+    },
+    currentDragPosition: state => {
+      return state.currentDragPosition;
     },
     lineX: state => {
       return state.lineX;

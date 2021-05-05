@@ -6,7 +6,10 @@
     @mousemove="doDrag"
     @mouseup="dragging = false"
   >
-    <div class="p-3 rounded-pill d-inline-block">your local time</div>
+    <div class="p-2 rounded-3 d-inline-block">
+      <div>your local time</div>
+      <div class="mt-2">time</div>
+    </div>
     <div class="w-100">
       <div class="line" ref="line"></div>
     </div>
@@ -40,7 +43,6 @@ export default {
   position: absolute;
   left: 50%;
   height: 175rem;
-  z-index: 1;
 }
 .overlay {
   position: absolute;
@@ -49,6 +51,7 @@ export default {
   width: 100%;
   height: 100%;
   cursor: -webkit-zoom-grabbing;
+  z-index: 2;
 }
 .zoneTimesLine:hover {
   cursor: pointer;

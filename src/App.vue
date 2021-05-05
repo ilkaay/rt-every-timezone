@@ -12,6 +12,7 @@
     </nav>
     <div style="user-select: none;">
       <zones-time-line></zones-time-line>
+      <current-time-line></current-time-line>
       <zone class="mt-5"></zone>
     </div>
     <footer class="navbar p-3">
@@ -23,10 +24,12 @@
 <script>
 import Zone from "../src/components/Zone/Zone";
 import ZonesTimeLine from "../src/components/ZonesTimeLine";
+import CurrentTimeLine from "../src/components/CurrentTimeLine";
 export default {
   components: {
     Zone,
-    ZonesTimeLine
+    ZonesTimeLine,
+    CurrentTimeLine
   }
 };
 </script>

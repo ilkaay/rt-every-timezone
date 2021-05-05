@@ -5,8 +5,10 @@
   >
     <div
       v-for="index in 6"
+      ref="day"
       :key="index"
-      class="bg-primary rounded-pill text-center"
+      class="rounded-pill text-center"
+      :class="{ 'bg-primary': selected, 'bg-danger': !selected }"
       :style="{ width: 25 + 'vw' }"
       style=" flex-shrink: 0; "
     >
@@ -24,7 +26,8 @@ import moment from "moment";
 export default {
   data() {
     return {
-      windowWidth: window.innerWidth
+      windowWidth: window.innerWidth,
+      selected: false
     };
   },
   components: {
@@ -44,12 +47,13 @@ export default {
       const timestampOfNow = moment.unix(this.now.tz(this.zoneInfoTimeZone));
       const offsetOfUtcInHours =
         moment.tz.zone(this.zoneInfoTimeZone).utcOffset(timestampOfNow) / 60;
-
       return offsetOfUtcInHours * (this.windowWidth / 96);
     },
     computedWindowWidth() {
-      console.log(window.innerWidth);
       return window.innerWidth;
+    },
+    dragPosition() {
+      return this.$store.getters.dragPosition;
     }
   },
   mounted() {
@@ -60,6 +64,22 @@ export default {
 
   beforeDestroy() {
     window.removeEventListener("resize", this.onResize);
+  },
+  watch: {
+    dragPosition(val) {
+      for (let index = 0; index < this.$refs.day.length; index++) {
+        if (
+          val < this.$refs.day[index].getClientRects()[0].right &&
+          val > this.$refs.day[index].getClientRects()[0].left
+        ) {
+          this.$refs.day[index].classList.remove("bg-danger");
+          this.$refs.day[index].classList.add("bg-primary");
+        } else {
+          this.$refs.day[index].classList.remove("bg-primary");
+          this.$refs.day[index].classList.add("bg-danger");
+        }
+      }
+    }
   }
 };
 </script>
