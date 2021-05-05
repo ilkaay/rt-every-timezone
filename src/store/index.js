@@ -2,6 +2,7 @@ import Vuex from "vuex";
 import Vue from "vue";
 
 Vue.use(Vuex);
+import moment from "moment";
 
 export const store = new Vuex.Store({
   state: {
@@ -9,133 +10,177 @@ export const store = new Vuex.Store({
       {
         flag: "/src/flag/us.svg",
         city: "Baker Island, US Minor Outlying Islands",
-        UTC: "-12"
+        timeZone: "Etc/GMT+12",
+        GMT: "-12"
       },
       {
         flag: "/src/flag/newZealand.svg",
         city: "Niue, New Zealand",
-        UTC: "-11"
+        timeZone: "Etc/GMT+11",
+        GMT: "-11"
       },
       {
         flag: "/src/flag/france.svg",
         city: "French Polynesia, France",
-        UTC: "-10"
+        timeZone: "Etc/GMT+10",
+        GMT: "-10"
       },
       {
         flag: "/src/flag/us.svg",
         city: "Alaska(US)",
-        UTC: "-9"
+        timeZone: "Etc/GMT+9",
+        GMT: "-9"
       },
       {
         flag: "/src/flag/canada.svg",
         city: "British Columbia, Canada",
-        UTC: "-8"
+        timeZone: "Etc/GMT+8",
+        GMT: "-8"
       },
       {
         flag: "/src/flag/us.svg",
         city: "Pacific Time(US)",
-        UTC: "-7"
+        timeZone: "Etc/GMT+7",
+        GMT: "-7"
       },
       {
         flag: "/src/flag/us.svg",
         city: "Mountain Time(US)",
-        UTC: "-6"
+        timeZone: "Etc/GMT+6",
+        GMT: "-6"
       },
       {
         flag: "/src/flag/us.svg",
         city: "Central Time(US)",
-        UTC: "-5"
+        timeZone: "Etc/GMT+5",
+        GMT: "-5"
       },
       {
         flag: "/src/flag/us.svg",
         city: "Eastern Time(US)",
-        UTC: "-4"
+        timeZone: "Etc/GMT+4",
+        GMT: "-4"
       },
       {
         flag: "/src/flag/brazil.svg",
         city: "Brazil Rio de Janerio, Brazil",
-        UTC: "-3"
+        timeZone: "Etc/GMT+3",
+        GMT: "-3"
       },
       {
         flag: "/src/flag/utc.svg",
         city: "UTC",
-        UTC: ""
+        timeZone: "Etc/GMT",
+        GMT: ""
       },
       {
         flag: "/src/flag/london.svg",
         city: "London, United Kingdom",
-        UTC: "+1"
+        timeZone: "Etc/GMT-1",
+        GMT: "+1"
       },
       {
         flag: "/src/flag/berlin.svg",
         city: "Berlin, Germany",
-        UTC: "+2"
+        timeZone: "Etc/GMT-2",
+        GMT: "+2"
       },
       {
         flag: "/src/flag/moscow.svg",
         city: "Moscow, Russian Federation",
-        UTC: "+3"
+        timeZone: "Etc/GMT-3",
+        GMT: "+3"
       },
       {
         flag: "/src/flag/dubai.svg",
         city: "Dubai, United Arab Emirates",
-        UTC: "+4"
-      },
-      {
-        flag: "/src/flag/mumbai.svg",
-        city: "Mumbai, India",
-        UTC: "+5:30"
+        timeZone: "Etc/GMT-4",
+        GMT: "+4"
       },
       {
         flag: "/src/flag/bangladesh.svg",
         city: " , Bangladesh",
-        UTC: "+6"
+        timeZone: "Etc/GMT-6",
+        GMT: "+6"
       },
       {
         flag: "/src/flag/mumbai.svg",
         city: " , Thailand",
-        UTC: "+7"
+        timeZone: "Etc/GMT-7",
+        GMT: "+7"
       },
       {
         flag: "/src/flag/singapore.svg",
         city: "Singapore, Singapore",
-        UTC: "+8"
+        timeZone: "Etc/GMT-8",
+        GMT: "+8"
       },
       {
         flag: "/src/flag/china.svg",
         city: "Beijing, China",
-        UTC: "+8"
+        timeZone: "Etc/GMT-8",
+        GMT: "+8"
       },
       {
         flag: "/src/flag/china.svg",
         city: "China Time, China",
-        UTC: "+8"
+        timeZone: "Etc/GMT-8",
+        GMT: "+8"
       },
       {
         flag: "/src/flag/tokyo.svg",
         city: "Tokyo, Japan",
-        UTC: "+9"
+        timeZone: "Etc/GMT-9",
+        GMT: "+9"
       },
       {
         flag: "/src/flag/australia.svg",
         city: "Sydney, Australia",
-        UTC: "+10"
+        timeZone: "Etc/GMT-10",
+        GMT: "+10"
       },
       {
         flag: "/src/flag/australia.svg",
         city: "Norfolk Island, Australia",
-        UTC: "+11"
+        timeZone: "Etc/GMT-11",
+        GMT: "+11"
       },
       {
         flag: "/src/flag/newZealand.svg",
         city: "Auckland, New Zealand",
-        UTC: "+12"
+        timeZone: "Etc/GMT-12",
+        GMT: "+12"
       }
-    ]
+    ],
+    startingDate: moment(moment.parseZone().format("yyyy/MM/DD")),
+    dragPosition: window.innerWidth / 2,
+    currentDragPosition: ""
   },
   getters: {
     zoneInfos: state => {
       return state.zoneInfos;
+    },
+    startingDate: state => {
+      return state.startingDate;
+    },
+    dragPosition: state => {
+      return state.dragPosition;
+    },
+    currentDragPosition: state => {
+      return state.currentDragPosition;
+    },
+    lineX: state => {
+      return state.lineX;
+    }
+  },
+  actions: {
+    updateDragPosition({ commit }, payload) {
+      commit("setDragPosition", payload);
+    }
+  },
+  mutations: {
+    setDragPosition(state, payload) {
+      state.dragPosition = payload;
     }
   }
 });

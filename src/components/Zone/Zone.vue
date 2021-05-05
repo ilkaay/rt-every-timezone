@@ -3,48 +3,41 @@
     <div
       v-for="zoneInfo in this.$store.getters.zoneInfos"
       :key="zoneInfo.key"
-      class="row row-no-padding p-1 mt-3 justify-content-center"
+      class="row p-1 mt-2 justify-content-center"
     >
       <zone-info
         :zoneInfoFlag="zoneInfo.flag"
         :zoneInfoCity="zoneInfo.city"
-        :zoneInfoDetail="zoneInfo.detail"
+        :zoneInfoGMT="zoneInfo.GMT"
       ></zone-info>
-      <div v-for="index in 4" :key="index" class="col">
-        <zone-day :date="generateNextDayDate(index - 1)"></zone-day>
-      </div>
+      <zone-time
+        :zoneInfoTimeZone="zoneInfo.timeZone"
+        :now="timeZoneNow(zoneInfo.timeZone)"
+      ></zone-time>
+      <zone-days
+        :now="timeZoneNow(zoneInfo.timeZone)"
+        :zoneInfoTimeZone="zoneInfo.timeZone"
+      >
+      </zone-days>
     </div>
   </div>
 </template>
 
 <script>
-import ZoneDay from "./ZoneDay";
-import ZoneInfo from "./ZoneInfo";
-import ZoneTime from "./ZoneTime";
 import moment from "moment";
-
+import ZoneInfo from "./ZoneInfo";
+import ZoneDays from "./ZoneDays";
+import ZoneTime from "./ZoneTime";
 export default {
   components: {
-    ZoneDay,
+    ZoneDays,
     ZoneInfo,
     ZoneTime
   },
   methods: {
-    generateNextDayDate(count) {
-      return moment().add(count, "days")._d;
+    timeZoneNow(zoneInfoTimeZone) {
+      return moment(this.$store.getters.startingDate).utc(zoneInfoTimeZone);
     }
   }
 };
 </script>
-
-<style scoped>
-.row-no-padding {
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.col {
-  padding-left: 0;
-  padding-right: 0;
-}
-</style>

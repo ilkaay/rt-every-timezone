@@ -10,13 +10,12 @@
         ><h3>Every Time Zone</h3></span
       >
     </nav>
-    <div class="mt-3 mb-5">
-      <div class="badge bg-warning mt-5 mx-auto" v-drag:x>
-        <span class="p-3">horizontal</span>
-      </div>
-      <zone></zone>
+    <div style="user-select: none;">
+      <zones-time-line></zones-time-line>
+      <current-time-line></current-time-line>
+      <zone class="mt-5"></zone>
     </div>
-    <footer class="navbar p-3">
+    <footer class="navbar p-3 mt-5">
       <span class="text-white"><strong>İlkay Yüksel</strong></span>
     </footer>
   </div>
@@ -24,15 +23,19 @@
 
 <script>
 import Zone from "../src/components/Zone/Zone";
+import ZonesTimeLine from "../src/components/ZonesTimeLine";
+import CurrentTimeLine from "../src/components/CurrentTimeLine";
 export default {
   components: {
-    Zone
+    Zone,
+    ZonesTimeLine,
+    CurrentTimeLine
   }
 };
 </script>
 
 <style scoped>
 .navbar {
-  background-color: #1c2c54;
+  background-color: #24273f;
 }
 </style>
