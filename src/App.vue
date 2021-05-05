@@ -15,7 +15,7 @@
       <current-time-line></current-time-line>
       <zone class="mt-5"></zone>
     </div>
-    <footer class="navbar p-3">
+    <footer class="navbar p-3 mt-5">
       <span class="text-white"><strong>İlkay Yüksel</strong></span>
     </footer>
   </div>
@@ -36,6 +36,6 @@ export default {
 
 <style scoped>
 .navbar {
-  background-color: #1c2c54;
+  background-color: #24273f;
 }
 </style>

@@ -13,7 +13,6 @@
     "bootstrap-vue": "^2.21.2",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
-    "v-drag": "^2.1.3",
     "vue": "^2.5.11",
     "vuex": "^3.6.2"
   },

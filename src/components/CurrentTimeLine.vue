@@ -1,7 +1,8 @@
 <template>
   <div
-    class="badge mt-5 bg-transparent overlay"
+    class="badge bg-transparent mt-2"
     :style="{ left: position + 'px' }"
+    style="position: relative;"
   >
     <div class="p-2 rounded-3 d-inline-block">
       <div>current local time</div>
@@ -25,9 +26,7 @@ export default {
     }
   },
   watch: {
-    dragPosition(val) {
-      console.log(val);
-    }
+    dragPosition(val) {}
   }
 };
 </script>
@@ -36,17 +35,10 @@ export default {
   width: 0.2rem;
   position: absolute;
   left: 50%;
-  height: 175rem;
+  height: 162rem;
   z-index: 1;
 }
-.overlay {
-  position: absolute;
-  top: 4%;
-  left: 0;
-}
-
 * {
   background-color: #7594e4;
-  user-select: none;
 }
 </style>

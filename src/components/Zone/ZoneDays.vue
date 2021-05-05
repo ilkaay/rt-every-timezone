@@ -7,8 +7,7 @@
       v-for="index in 6"
       ref="day"
       :key="index"
-      class="rounded-pill text-center"
-      :class="{ 'bg-primary': selected, 'bg-danger': !selected }"
+      class="rounded-pill text-center dafault"
       :style="{ width: 25 + 'vw' }"
       style=" flex-shrink: 0; "
     >
@@ -26,8 +25,7 @@ import moment from "moment";
 export default {
   data() {
     return {
-      windowWidth: window.innerWidth,
-      selected: false
+      windowWidth: window.innerWidth
     };
   },
   components: {
@@ -60,6 +58,7 @@ export default {
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
+    this.$store.dispatch("updateDragPosition", this.dragPosition + 0.01);
   },
 
   beforeDestroy() {
@@ -72,11 +71,11 @@ export default {
           val < this.$refs.day[index].getClientRects()[0].right &&
           val > this.$refs.day[index].getClientRects()[0].left
         ) {
-          this.$refs.day[index].classList.remove("bg-danger");
-          this.$refs.day[index].classList.add("bg-primary");
+          this.$refs.day[index].classList.remove("dafault");
+          this.$refs.day[index].classList.add("active");
         } else {
-          this.$refs.day[index].classList.remove("bg-primary");
-          this.$refs.day[index].classList.add("bg-danger");
+          this.$refs.day[index].classList.remove("active");
+          this.$refs.day[index].classList.add("dafault");
         }
       }
     }
@@ -88,5 +87,35 @@ export default {
 .col {
   padding-left: 0;
   padding-right: 0;
+}
+.active {
+  background: linear-gradient(
+    to right,
+    #5485b1 0%,
+    #5485b1 24.99%,
+    #3cafc5 25%,
+    #3cafc5 32.99%,
+    #55c8e4 33%,
+    #55c8e4 74.99%,
+    #3cafc5 75%,
+    #3cafc5 90.99%,
+    #5485b1 91%,
+    #5485b1 100%
+  );
+}
+.dafault {
+  background: linear-gradient(
+    to right,
+    #4b4c4d 0%,
+    #4b4c4d 24.99%,
+    #575b5c 25%,
+    #575b5c 32.99%,
+    #6b7071 33%,
+    #6b7071 74.99%,
+    #575b5c 75%,
+    #575b5c 90.99%,
+    #4b4c4d 91%,
+    #4b4c4d 100%
+  );
 }
 </style>

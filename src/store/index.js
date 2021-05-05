@@ -153,7 +153,7 @@ export const store = new Vuex.Store({
       }
     ],
     startingDate: moment(moment.parseZone().format("yyyy/MM/DD")),
-    dragPosition: "",
+    dragPosition: window.innerWidth / 2,
     currentDragPosition: ""
   },
   getters: {

@@ -1,17 +1,20 @@
 <template>
   <div
-    class="badge mt-5 zoneTimesLine bg-transparent overlay"
-    v-drag:x
+    class="badge zoneTimesLine bg-transparent overlay"
     @mousedown="dragging = true"
     @mousemove="doDrag"
     @mouseup="dragging = false"
   >
-    <div class="p-2 rounded-3 d-inline-block">
-      <div>your local time</div>
-      <div class="mt-2">time</div>
-    </div>
-    <div class="w-100">
-      <div class="line" ref="line"></div>
+    <div
+      :style="{ left: lineLocation + 'px' }"
+      class="mt-2 p-2 rounded-3 d-inline-block"
+      style="position: absolute;"
+    >
+      <div>
+        <div ref="local">your local time</div>
+        <div class="mt-2">time</div>
+      </div>
+      <div ref="line" class="line"></div>
     </div>
   </div>
 </template>
@@ -20,18 +23,18 @@ export default {
   data() {
     return {
       dragging: false,
-      x: ""
+      lineLocation: window.innerWidth / 2 - 63
     };
   },
   methods: {
     doDrag(event) {
       if (this.dragging) {
-        this.x = event.pageX;
-        const lineLocation = this.$refs.line.getClientRects()[0];
-        this.$store.dispatch(
-          "updateDragPosition",
-          (lineLocation.left + lineLocation.right) / 2
-        );
+        this.lineLocation =
+          event.pageX -
+          this.$refs.local.clientWidth / 2 -
+          this.$refs.line.clientWidth * 2;
+        console.log(this.$refs.local.clientWidth);
+        this.$store.dispatch("updateDragPosition", event.pageX);
       }
     }
   }
@@ -42,11 +45,10 @@ export default {
   width: 0.2rem;
   position: absolute;
   left: 50%;
-  height: 175rem;
+  height: 162rem;
 }
 .overlay {
   position: absolute;
-  top: 4%;
   left: 0;
   width: 100%;
   height: 100%;
@@ -57,7 +59,6 @@ export default {
   cursor: pointer;
 }
 * {
-  background-color: #1c2c54;
-  user-select: none;
+  background-color: #24273f;
 }
 </style>
