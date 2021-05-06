@@ -1,12 +1,12 @@
 <template>
   <div
     class="badge bg-transparent mt-2"
-    :style="{ left: position + 'px' }"
+    :style="{ left: currentPosition + 'px' }"
     style="position: relative;"
   >
     <div class="p-2 rounded-3 d-inline-block">
       <div>current local time</div>
-      <div class="mt-2">time</div>
+      <div class="mt-2">{{ time }}</div>
     </div>
     <div class="w-100">
       <div class="line" ref="line"></div>
@@ -14,19 +14,25 @@
   </div>
 </template>
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
-      position: 0
+      time: moment().format("HH:mm")
     };
   },
   computed: {
-    dragPosition() {
-      return this.$store.getters.startingDate;
+    currentPosition() {
+      return this.$store.getters.currentPosition;
+    },
+    currentTime() {
+      return moment().format("HH:mm");
     }
   },
   watch: {
-    dragPosition(val) {}
+    currentTime(val) {
+      this.time = val;
+    }
   }
 };
 </script>

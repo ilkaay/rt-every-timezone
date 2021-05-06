@@ -39,8 +39,7 @@ export default {
     dragPosition(positionOfLine) {
       this.leftPos = positionOfLine + 10;
       const percent = positionOfLine / window.innerWidth;
-      const eachPercent = 1 / 384;
-      this.index = Math.floor((percent / eachPercent) % 96);
+      this.index = Math.floor((percent * 384) % 96);
     }
   }
 };

@@ -12,16 +12,19 @@
     >
       <div>
         <div ref="local">your local time</div>
-        <div class="mt-2">time</div>
+        <div class="mt-2">{{ time }}</div>
       </div>
       <div ref="line" class="line"></div>
     </div>
   </div>
 </template>
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
+      time: "",
+      index: 0,
       dragging: false,
       lineLocation: window.innerWidth / 2 - 63
     };
@@ -33,10 +36,33 @@ export default {
           event.pageX -
           this.$refs.local.clientWidth / 2 -
           this.$refs.line.clientWidth * 2;
-        console.log(this.$refs.local.clientWidth);
         this.$store.dispatch("updateDragPosition", event.pageX);
       }
     }
+  },
+  computed: {
+    dragPosition() {
+      return this.$store.getters.dragPosition;
+    }
+  },
+  watch: {
+    dragPosition(positionOfLine) {
+      const percent = positionOfLine / window.innerWidth;
+      this.index = Math.floor((percent * 384) % 96);
+      this.time = moment
+        .unix(
+          moment(this.$store.getters.startingDate)
+            .utc(moment.tz.guess())
+            .unix() +
+            this.index * 60 * 15
+        )
+        .tz(moment.tz.guess())
+        .format("HH:mm");
+    }
+  },
+  mounted() {
+    this.lineLocation = this.$store.getters.currentPosition + 18;
+    this.time = moment().format("HH:mm");
   }
 };
 </script>
