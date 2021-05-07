@@ -1,21 +1,17 @@
 <template>
   <div
-    class="badge overlay"
+    ref="zoneTimeLine"
+    :style="{ left: spaceFromLeftForLine + 'px' }"
+    class="badge overlay mt-2"
     @mousedown="dragging = true"
     @mousemove="doDrag"
     @mouseup="dragging = false"
   >
-    <div
-      :style="{ left: spaceFromLeftForLine + 'px' }"
-      class="mt-2 p-2 rounded-3 d-inline-block"
-      style="position: absolute;"
-    >
-      <div>
-        <div ref="local">your local time</div>
-        <div class="mt-2">time</div>
-      </div>
-      <div ref="line" class="line"></div>
+    <div class="d-inline-block rounded-3 p-2">
+      <div>your local time</div>
+      <div class="mt-2">time</div>
     </div>
+    <div class="line"></div>
   </div>
 </template>
 <script>
@@ -29,8 +25,7 @@ export default {
   methods: {
     doDrag(mouseEvent) {
       if (this.dragging) {
-        const halfOfLocal =
-          this.$refs.local.clientWidth / 2 + this.$refs.line.clientWidth * 2;
+        const halfOfLocal = this.$refs.zoneTimeLine.clientWidth / 2;
         this.spaceFromLeftForLine = mouseEvent.pageX - halfOfLocal;
         this.$store.dispatch("updateDragPosition", mouseEvent.pageX);
       }
@@ -38,7 +33,8 @@ export default {
   },
   mounted() {
     this.spaceFromLeftForLine =
-      this.$store.getters.dragPosition - this.$refs.local.clientWidth / 2;
+      this.$store.getters.dragPosition -
+      this.$refs.zoneTimeLine.clientWidth / 2;
   }
 };
 </script>
@@ -47,15 +43,14 @@ export default {
   width: 0.2rem;
   position: absolute;
   left: 50%;
-  height: 162rem;
+  height: 100%;
 }
 .overlay {
   background-color: transparent;
   position: absolute;
   left: 0;
-  width: 100%;
+  width: 200%;
   height: 100%;
-  cursor: -webkit-zoom-grabbing;
   z-index: 2;
 }
 .overlay:hover {

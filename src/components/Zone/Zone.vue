@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="zone">
     <div
       v-for="zoneInfo in this.$store.getters.zoneInfos"
       :key="zoneInfo.key"
@@ -41,3 +41,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.zone {
+  margin: 5rem 0 1.5rem 0;
+}
+</style>

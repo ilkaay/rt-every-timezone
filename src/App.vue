@@ -1,10 +1,10 @@
 <template>
   <div>
     <navbar></navbar>
-    <div style="user-select: none;">
+    <div class="wrapper">
       <zones-time-line></zones-time-line>
       <current-time-line></current-time-line>
-      <zone class="mt-5"></zone>
+      <zone></zone>
     </div>
     <app-footer></app-footer>
   </div>
@@ -27,3 +27,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.wrapper {
+  user-select: none;
+  overflow: hidden;
+  position: relative;
+}
+</style>
