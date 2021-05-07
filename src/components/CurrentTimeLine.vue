@@ -19,14 +19,6 @@ export default {
     return {
       position: 0
     };
-  },
-  computed: {
-    dragPosition() {
-      return this.$store.getters.startingDate;
-    }
-  },
-  watch: {
-    dragPosition(val) {}
   }
 };
 </script>

@@ -1,22 +1,17 @@
 <template>
-  <span :class="{ leftPosition: leftPos, rightPosition: rightPos }"
-    ><img
-      :src="zoneInfoFlag"
-      style="width: 2rem; height: 2rem; padding: 3px; ;"
-      class="rounded-circle"
-    />{{ zoneInfoCity }}
+  <span :class="{ leftPosition: slideLeft, rightPosition: !slideLeft }">
+    <img :src="flag" class="flag rounded-circle" />{{ city }}
     <br class="d-lg-none" />
-    <small class="text-muted">UTC {{ zoneInfoGMT }}</small>
+    <small class="text-muted">UTC {{ GMT }}</small>
   </span>
 </template>
 
 <script>
 export default {
-  props: ["zoneInfoFlag", "zoneInfoCity", "zoneInfoGMT"],
+  props: ["flag", "city", "GMT"],
   data() {
     return {
-      leftPos: false,
-      rightPos: true
+      slideLeft: true
     };
   },
   computed: {
@@ -25,14 +20,8 @@ export default {
     }
   },
   watch: {
-    dragPosition(positionOfLine) {
-      if (positionOfLine < window.innerWidth / 3) {
-        this.leftPos = true;
-        this.rightPos = false;
-      } else {
-        this.leftPos = false;
-        this.rightPos = true;
-      }
+    dragPosition(dragPosition) {
+      this.slideLeft = dragPosition < window.innerWidth / 2 ? false : true;
     }
   }
 };
@@ -40,11 +29,18 @@ export default {
 
 <style scoped>
 .leftPosition {
-  text-align: right;
-  transition: all 1s ease-in-out;
+  position: absolute;
+  left: 1%;
+  transition: right 1s ease-in-out;
 }
 .rightPosition {
-  text-align: left;
-  transition: all 1s ease-in-out;
+  position: absolute;
+  right: 1%;
+  transition: left 1s ease-in-out;
+}
+.flag {
+  width: 2rem;
+  height: 2rem;
+  padding: 3px;
 }
 </style>

@@ -152,7 +152,7 @@ export const store = new Vuex.Store({
         GMT: "+12"
       }
     ],
-    startingDate: moment(moment.parseZone().format("yyyy/MM/DD")),
+    startingDate: moment().format("yyyy/MM/DD"),
     dragPosition: window.innerWidth / 2,
     currentDragPosition: ""
   },

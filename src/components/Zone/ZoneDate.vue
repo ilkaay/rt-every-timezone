@@ -1,5 +1,5 @@
 <template>
-  <span style="font-size: 1.2rem;">
+  <span>
     {{ formattedDate }}
   </span>
 </template>
