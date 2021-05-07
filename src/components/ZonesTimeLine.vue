@@ -1,12 +1,12 @@
 <template>
   <div
-    class="badge zoneTimesLine bg-transparent overlay"
+    class="badge overlay"
     @mousedown="dragging = true"
     @mousemove="doDrag"
     @mouseup="dragging = false"
   >
     <div
-      :style="{ left: lineLocation + 'px' }"
+      :style="{ left: spaceFromLeftForLine + 'px' }"
       class="mt-2 p-2 rounded-3 d-inline-block"
       style="position: absolute;"
     >
@@ -23,20 +23,22 @@ export default {
   data() {
     return {
       dragging: false,
-      lineLocation: window.innerWidth / 2 - 63
+      spaceFromLeftForLine: undefined
     };
   },
   methods: {
-    doDrag(event) {
+    doDrag(mouseEvent) {
       if (this.dragging) {
-        this.lineLocation =
-          event.pageX -
-          this.$refs.local.clientWidth / 2 -
-          this.$refs.line.clientWidth * 2;
-        console.log(this.$refs.local.clientWidth);
-        this.$store.dispatch("updateDragPosition", event.pageX);
+        const halfOfLocal =
+          this.$refs.local.clientWidth / 2 + this.$refs.line.clientWidth * 2;
+        this.spaceFromLeftForLine = mouseEvent.pageX - halfOfLocal;
+        this.$store.dispatch("updateDragPosition", mouseEvent.pageX);
       }
     }
+  },
+  mounted() {
+    this.spaceFromLeftForLine =
+      this.$store.getters.dragPosition - this.$refs.local.clientWidth / 2;
   }
 };
 </script>
@@ -48,6 +50,7 @@ export default {
   height: 162rem;
 }
 .overlay {
+  background-color: transparent;
   position: absolute;
   left: 0;
   width: 100%;
@@ -55,7 +58,7 @@ export default {
   cursor: -webkit-zoom-grabbing;
   z-index: 2;
 }
-.zoneTimesLine:hover {
+.overlay:hover {
   cursor: pointer;
 }
 * {

@@ -3,20 +3,20 @@
     <div
       v-for="zoneInfo in this.$store.getters.zoneInfos"
       :key="zoneInfo.key"
-      class="row p-1 mt-2 justify-content-center"
+      class="mt-3"
     >
       <zone-info
-        :zoneInfoFlag="zoneInfo.flag"
-        :zoneInfoCity="zoneInfo.city"
-        :zoneInfoGMT="zoneInfo.GMT"
+        :flag="zoneInfo.flag"
+        :city="zoneInfo.city"
+        :GMT="zoneInfo.GMT"
       ></zone-info>
       <zone-time
-        :zoneInfoTimeZone="zoneInfo.timeZone"
-        :now="timeZoneNow(zoneInfo.timeZone)"
+        :timeZone="zoneInfo.timeZone"
+        :startingDate="timeZoneStartingDate(zoneInfo.timeZone)"
       ></zone-time>
       <zone-days
-        :now="timeZoneNow(zoneInfo.timeZone)"
-        :zoneInfoTimeZone="zoneInfo.timeZone"
+        :timeZone="zoneInfo.timeZone"
+        :startingDate="timeZoneStartingDate(zoneInfo.timeZone)"
       >
       </zone-days>
     </div>
@@ -26,8 +26,8 @@
 <script>
 import moment from "moment";
 import ZoneInfo from "./ZoneInfo";
-import ZoneDays from "./ZoneDays";
 import ZoneTime from "./ZoneTime";
+import ZoneDays from "./ZoneDays";
 export default {
   components: {
     ZoneDays,
@@ -35,8 +35,8 @@ export default {
     ZoneTime
   },
   methods: {
-    timeZoneNow(zoneInfoTimeZone) {
-      return moment(this.$store.getters.startingDate).utc(zoneInfoTimeZone);
+    timeZoneStartingDate(timeZone) {
+      return moment(this.$store.getters.startingDate).utc(timeZone);
     }
   }
 };

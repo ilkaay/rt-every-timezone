@@ -1,19 +1,14 @@
 <template>
-  <div
-    :style="{ left: slideLeft + 'px' }"
-    style="position:relative; display: flex; justify-content: space-evenly;"
-  >
+  <div class="days mt-2" :style="{ left: slideLeft + 'px' }">
     <div
-      v-for="index in 6"
       ref="day"
+      class="day dafault rounded-pill"
+      v-for="index in 6"
       :key="index"
-      class="rounded-pill text-center dafault"
-      :style="{ width: 25 + 'vw' }"
-      style=" flex-shrink: 0; "
     >
       <zone-date
-        class="text-white m-1 w-100"
-        :date="generateNextDayDate(index - 3)"
+        class="text-white w-100"
+        :date="generateDayDate(index - 3)"
       ></zone-date>
     </div>
   </div>
@@ -23,6 +18,7 @@
 import ZoneDate from "./ZoneDate";
 import moment from "moment";
 export default {
+  props: ["startingDate", "timeZone"],
   data() {
     return {
       windowWidth: window.innerWidth
@@ -31,10 +27,13 @@ export default {
   components: {
     ZoneDate
   },
-  props: ["now", "zoneInfoTimeZone"],
+  mounted() {
+    window.addEventListener("resize", this.onResize);
+    this.$store.dispatch("updateDragPosition", this.dragPosition + 0.01);
+  },
   methods: {
-    generateNextDayDate(count) {
-      return moment().add(count, "days")._d;
+    generateDayDate(index) {
+      return moment().add(index, "days")._d;
     },
     onResize() {
       this.windowWidth = window.innerWidth;
@@ -42,10 +41,10 @@ export default {
   },
   computed: {
     slideLeft() {
-      const timestampOfNow = moment.unix(this.now.tz(this.zoneInfoTimeZone));
-      const offsetOfUtcInHours =
-        moment.tz.zone(this.zoneInfoTimeZone).utcOffset(timestampOfNow) / 60;
-      return offsetOfUtcInHours * (this.windowWidth / 96);
+      const timestampOfStartingDate = moment.unix(this.startingDate);
+      const utcOffsetInHours =
+        moment.tz.zone(this.timeZone).utcOffset(timestampOfStartingDate) / 60;
+      return utcOffsetInHours * (this.windowWidth / 96);
     },
     computedWindowWidth() {
       return window.innerWidth;
@@ -54,39 +53,32 @@ export default {
       return this.$store.getters.dragPosition;
     }
   },
-  mounted() {
-    this.$nextTick(() => {
-      window.addEventListener("resize", this.onResize);
-    });
-    this.$store.dispatch("updateDragPosition", this.dragPosition + 0.01);
-  },
-
-  beforeDestroy() {
-    window.removeEventListener("resize", this.onResize);
-  },
   watch: {
-    dragPosition(val) {
-      for (let index = 0; index < this.$refs.day.length; index++) {
-        if (
-          val < this.$refs.day[index].getClientRects()[0].right &&
-          val > this.$refs.day[index].getClientRects()[0].left
-        ) {
-          this.$refs.day[index].classList.remove("dafault");
-          this.$refs.day[index].classList.add("active");
-        } else {
-          this.$refs.day[index].classList.remove("active");
-          this.$refs.day[index].classList.add("dafault");
-        }
+    dragPosition(dragPosition) {
+      for (const day of this.$refs.day) {
+        dragPosition < day.getClientRects()[0].right &&
+        dragPosition >= day.getClientRects()[0].left
+          ? day.classList.add("active")
+          : day.classList.remove("active");
       }
     }
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onResize);
   }
 };
 </script>
 
 <style scoped>
-.col {
-  padding-left: 0;
-  padding-right: 0;
+.days {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+}
+.day {
+  flex-shrink: 0;
+  width: 25vw;
+  text-align: center;
 }
 .active {
   background: linear-gradient(
@@ -101,7 +93,7 @@ export default {
     #3cafc5 90.99%,
     #5485b1 91%,
     #5485b1 100%
-  );
+  ) !important;
 }
 .dafault {
   background: linear-gradient(
