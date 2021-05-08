@@ -11,7 +11,7 @@
       <div>your local time</div>
       <div class="mt-2">time</div>
     </div>
-    <div class="line"></div>
+    <div ref="line" class="line"></div>
   </div>
 </template>
 <script>
@@ -19,8 +19,14 @@ export default {
   data() {
     return {
       dragging: false,
-      spaceFromLeftForLine: undefined
+      spaceFromLeftForLine: undefined,
+      windowWidth: window.innerWidth
     };
+  },
+  mounted() {
+    this.spaceFromLeftForLine =
+      this.$store.getters.dragPosition -
+      this.$refs.zoneTimeLine.clientWidth / 2;
   },
   methods: {
     doDrag(mouseEvent) {
@@ -31,10 +37,21 @@ export default {
       }
     }
   },
-  mounted() {
-    this.spaceFromLeftForLine =
-      this.$store.getters.dragPosition -
-      this.$refs.zoneTimeLine.clientWidth / 2;
+  computed: {
+    width() {
+      return this.$store.getters.windowWidth;
+    }
+  },
+  watch: {
+    width(width) {
+      this.spaceFromLeftForLine =
+        (this.spaceFromLeftForLine * width) / this.windowWidth;
+      this.windowWidth = width;
+      this.$store.dispatch(
+        "updateDragPosition",
+        this.spaceFromLeftForLine + this.$refs.zoneTimeLine.clientWidth / 2
+      );
+    }
   }
 };
 </script>
@@ -51,7 +68,7 @@ export default {
   left: 0;
   width: 200%;
   height: 100%;
-  z-index: 2;
+  z-index: 10;
 }
 .overlay:hover {
   cursor: pointer;

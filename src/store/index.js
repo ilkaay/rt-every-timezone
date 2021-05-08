@@ -154,7 +154,8 @@ export const store = new Vuex.Store({
     ],
     startingDate: moment().format("yyyy/MM/DD"),
     dragPosition: window.innerWidth / 2,
-    currentDragPosition: ""
+    currentDragPosition: "",
+    windowWidth: window.innerWidth
   },
   getters: {
     zoneInfos: state => {
@@ -171,16 +172,25 @@ export const store = new Vuex.Store({
     },
     lineX: state => {
       return state.lineX;
+    },
+    windowWidth: state => {
+      return state.windowWidth;
     }
   },
   actions: {
     updateDragPosition({ commit }, payload) {
       commit("setDragPosition", payload);
+    },
+    updateWindowWidth({ commit }, payload) {
+      commit("setWindowWidth", payload);
     }
   },
   mutations: {
     setDragPosition(state, payload) {
       state.dragPosition = payload;
+    },
+    setWindowWidth(state, payload) {
+      state.windowWidth = payload;
     }
   }
 });
