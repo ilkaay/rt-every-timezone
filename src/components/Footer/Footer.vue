@@ -1,11 +1,14 @@
 <template>
-  <footer class="p-3 mt-5">
-    <span class="text-white"><strong>İlkay Yüksel</strong></span>
+  <footer class="p-3 mt-5 text-center">
+    <img src="../../assets/logo-white-remoteteam_sky1mo.svg" />
   </footer>
 </template>
 
 <style scoped>
 * {
-  background-color: #24273f;
+  background-color: rgba(45, 70, 193, 1);
+}
+img {
+  height: 3rem;
 }
 </style>

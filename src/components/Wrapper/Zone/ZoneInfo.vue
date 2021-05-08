@@ -41,6 +41,6 @@ export default {
 .flag {
   width: 2rem;
   height: 2rem;
-  padding: 3px;
+  padding: 0.2rem;
 }
 </style>

@@ -23,11 +23,6 @@ export default {
       windowWidth: window.innerWidth
     };
   },
-  mounted() {
-    this.spaceFromLeftForLine =
-      this.$store.getters.dragPosition -
-      this.$refs.zoneTimeLine.clientWidth / 2;
-  },
   methods: {
     doDrag(mouseEvent) {
       if (this.dragging) {
@@ -40,17 +35,24 @@ export default {
   computed: {
     width() {
       return this.$store.getters.windowWidth;
+    },
+    currentPosition() {
+      return this.$store.getters.currentPosition;
     }
   },
   watch: {
     width(width) {
       this.spaceFromLeftForLine =
-        (this.spaceFromLeftForLine * width) / this.windowWidth;
+        this.spaceFromLeftForLine * (width / this.windowWidth);
       this.windowWidth = width;
       this.$store.dispatch(
-        "updateDragPosition",
+        "updateCurrentPosition",
         this.spaceFromLeftForLine + this.$refs.zoneTimeLine.clientWidth / 2
       );
+    },
+    currentPosition(position) {
+      this.spaceFromLeftForLine =
+        position - this.$refs.zoneTimeLine.clientWidth / 4;
     }
   }
 };
@@ -68,12 +70,12 @@ export default {
   left: 0;
   width: 200%;
   height: 100%;
-  z-index: 10;
+  z-index: 3;
 }
 .overlay:hover {
   cursor: pointer;
 }
 * {
-  background-color: #24273f;
+  background-color: rgba(45, 70, 193, 1);
 }
 </style>
