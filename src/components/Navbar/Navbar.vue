@@ -13,6 +13,6 @@
 
 <style scoped>
 * {
-  background-color: #24273f;
+  background-color: #2d46c1;
 }
 </style>

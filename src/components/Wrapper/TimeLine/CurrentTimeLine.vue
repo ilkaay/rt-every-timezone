@@ -1,14 +1,14 @@
 <template>
   <div
     :style="{ left: position + 'px' }"
-    style="position: absolute; height: 100%; z-index: 2;"
-    class="badge mt-2"
+    class="currentTimeWrapper badge  mt-2"
+    ref="currentTimeWrapper"
   >
     <div class="time d-inline-block rounded-3 p-2">
       <div>current local time</div>
       <div class="mt-2">{{ time }}</div>
     </div>
-    <div class="line" ref="line"></div>
+    <div class="line"></div>
   </div>
 </template>
 <script>
@@ -16,34 +16,73 @@ import moment from "moment";
 export default {
   data() {
     return {
-      time: moment().format("HH:mm")
+      time: moment().format("HH:mm"),
+      position: undefined,
+      windowWidth: window.innerWidth
     };
   },
+  mounted() {
+    this.setPosition();
+  },
+  methods: {
+    setPosition() {
+      const timeStampOfStartingDate = moment(this.$store.getters.startingDate)
+        .parseZone()
+        .unix();
+      const timeStampOfNow = moment().unix();
+      const differenceTimeStamp = timeStampOfNow - timeStampOfStartingDate;
+      const differenceTimeStampInQuarter = differenceTimeStamp / 60 / 15;
+      const eachQuarterWidth = this.windowWidth / 384;
+      const eachDayWidth = this.windowWidth / 4;
+      const wrapperWidth = this.$refs.currentTimeWrapper.clientWidth / 2;
+      this.position =
+        differenceTimeStampInQuarter * eachQuarterWidth +
+        eachDayWidth -
+        wrapperWidth;
+      this.$store.dispatch("updateCurrentPosition", this.position);
+    }
+  },
   computed: {
-    currentPosition() {
-      return this.$store.getters.currentPosition;
-    },
     currentTime() {
-      return moment().format("HH:mm");
+      return moment();
+    },
+    width() {
+      return this.$store.getters.windowWidth;
     }
   },
   watch: {
-    currentTime(val) {
-      this.time = val;
+    currentTime(time) {
+      this.time = time.format("HH:mm");
+      this.setPosition();
+    },
+    width(width) {
+      this.position = this.position * (width / this.windowWidth);
+      this.windowWidth = width;
+      console.log("current", this.position);
+      this.$store.dispatch(
+        "updateCurrentPosition",
+        this.position + this.$refs.currentTimeWrapper.clientWidth / 2
+      );
     }
   }
 };
 </script>
 <style scoped>
+.currentTimeWrapper {
+  position: absolute;
+  height: 100%;
+  z-index: 2;
+  width: 100%;
+}
 .line {
   width: 0.2rem;
   position: absolute;
   left: 50%;
   height: 100%;
   z-index: 1;
-  background-color: #7594e4;
+  background-color: #24273f;
 }
 .time {
-  background-color: #7594e4;
+  background-color: #24273f;
 }
 </style>

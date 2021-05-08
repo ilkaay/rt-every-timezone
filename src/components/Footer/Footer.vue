@@ -6,6 +6,6 @@
 
 <style scoped>
 * {
-  background-color: #24273f;
+  background-color: rgba(45, 70, 193, 1);
 }
 </style>
