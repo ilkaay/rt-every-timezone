@@ -58,7 +58,6 @@ export default {
     width(width) {
       this.position = this.position * (width / this.windowWidth);
       this.windowWidth = width;
-      console.log("current", this.position);
       this.$store.dispatch(
         "updateCurrentPosition",
         this.position + this.$refs.currentTimeWrapper.clientWidth / 2

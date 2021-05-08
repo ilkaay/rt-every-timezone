@@ -46,7 +46,7 @@ export default {
         this.spaceFromLeftForLine * (width / this.windowWidth);
       this.windowWidth = width;
       this.$store.dispatch(
-        "updatecurrentPosition",
+        "updateCurrentPosition",
         this.spaceFromLeftForLine + this.$refs.zoneTimeLine.clientWidth / 2
       );
     },
