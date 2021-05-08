@@ -19,24 +19,13 @@ import ZoneDate from "./ZoneDate";
 import moment from "moment";
 export default {
   props: ["startingDate", "timeZone"],
-  data() {
-    return {
-      windowWidth: window.innerWidth
-    };
-  },
-  components: {
-    ZoneDate
-  },
+  components: { ZoneDate },
   mounted() {
-    window.addEventListener("resize", this.onResize);
     this.$store.dispatch("updateDragPosition", this.dragPosition + 0.01);
   },
   methods: {
     generateDayDate(index) {
       return moment().add(index, "days")._d;
-    },
-    onResize() {
-      this.windowWidth = window.innerWidth;
     }
   },
   computed: {
@@ -44,10 +33,7 @@ export default {
       const timestampOfStartingDate = moment.unix(this.startingDate);
       const utcOffsetInHours =
         moment.tz.zone(this.timeZone).utcOffset(timestampOfStartingDate) / 60;
-      return utcOffsetInHours * (this.windowWidth / 96);
-    },
-    computedWindowWidth() {
-      return window.innerWidth;
+      return utcOffsetInHours * (this.$store.getters.windowWidth / 96);
     },
     dragPosition() {
       return this.$store.getters.dragPosition;
@@ -62,9 +48,6 @@ export default {
           : day.classList.remove("active");
       }
     }
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.onResize);
   }
 };
 </script>

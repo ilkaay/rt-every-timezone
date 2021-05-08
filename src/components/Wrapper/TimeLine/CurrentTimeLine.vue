@@ -1,16 +1,14 @@
 <template>
   <div
-    class="badge bg-transparent mt-2"
     :style="{ left: position + 'px' }"
-    style="position: relative;"
+    style="position: absolute; height: 100%; z-index: 2;"
+    class="badge mt-2"
   >
-    <div class="p-2 rounded-3 d-inline-block">
+    <div class="time d-inline-block rounded-3 p-2">
       <div>current local time</div>
       <div class="mt-2">time</div>
     </div>
-    <div class="w-100">
-      <div class="line" ref="line"></div>
-    </div>
+    <div class="line" ref="line"></div>
   </div>
 </template>
 <script>
@@ -27,10 +25,11 @@ export default {
   width: 0.2rem;
   position: absolute;
   left: 50%;
-  height: 162rem;
+  height: 100%;
   z-index: 1;
+  background-color: #7594e4;
 }
-* {
+.time {
   background-color: #7594e4;
 }
 </style>
