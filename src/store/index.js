@@ -152,7 +152,7 @@ export const store = new Vuex.Store({
         GMT: "+12"
       }
     ],
-    startingDate: moment(moment.parseZone().format("yyyy/MM/DD")),
+    startingDate: moment().format("yyyy/MM/DD"),
     dragPosition: window.innerWidth / 2,
     currentPosition:
       (((moment().unix() -
@@ -161,7 +161,9 @@ export const store = new Vuex.Store({
         15) *
         window.innerWidth) /
         384 +
-      73
+      73,
+    currentDragPosition: "",
+    windowWidth: window.innerWidth
   },
   getters: {
     zoneInfos: state => {
@@ -181,16 +183,25 @@ export const store = new Vuex.Store({
     },
     currentDragPosition: state => {
       return state.currentDragPosition;
+    },
+    windowWidth: state => {
+      return state.windowWidth;
     }
   },
   actions: {
     updateDragPosition({ commit }, payload) {
       commit("setDragPosition", payload);
+    },
+    updateWindowWidth({ commit }, payload) {
+      commit("setWindowWidth", payload);
     }
   },
   mutations: {
     setDragPosition(state, payload) {
       state.dragPosition = payload;
+    },
+    setWindowWidth(state, payload) {
+      state.windowWidth = payload;
     }
   }
 });
