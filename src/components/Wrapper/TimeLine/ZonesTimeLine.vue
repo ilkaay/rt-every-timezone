@@ -76,6 +76,6 @@ export default {
   cursor: pointer;
 }
 * {
-  background-color: rgba(45, 70, 193, 1);
+  background-color: #0466c8;
 }
 </style>

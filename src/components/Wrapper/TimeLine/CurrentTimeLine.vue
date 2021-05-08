@@ -79,9 +79,9 @@ export default {
   left: 50%;
   height: 100%;
   z-index: 1;
-  background-color: #24273f;
+  background-color: #023e8a;
 }
 .time {
-  background-color: #24273f;
+  background-color: #023e8a;
 }
 </style>
