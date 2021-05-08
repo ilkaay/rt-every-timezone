@@ -170,9 +170,6 @@ export const store = new Vuex.Store({
     currentPosition: state => {
       return state.currentPosition;
     },
-    lineX: state => {
-      return state.lineX;
-    },
     windowWidth: state => {
       return state.windowWidth;
     }

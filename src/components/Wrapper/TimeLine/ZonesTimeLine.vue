@@ -8,7 +8,7 @@
     @mouseup="dragging = false"
   >
     <div class="d-inline-block rounded-3 p-2">
-      <div>your local time</div>
+      <div>Your local time</div>
       <div class="mt-2">time</div>
     </div>
     <div ref="line" class="line"></div>
@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       dragging: false,
-      spaceFromLeftForLine: undefined,
+      spaceFromLeftForLine: window.innerWidth / 2,
       windowWidth: window.innerWidth
     };
   },
@@ -28,7 +28,10 @@ export default {
       if (this.dragging) {
         const halfOfLocal = this.$refs.zoneTimeLine.clientWidth / 2;
         this.spaceFromLeftForLine = mouseEvent.pageX - halfOfLocal;
-        this.$store.dispatch("updateDragPosition", mouseEvent.pageX);
+        this.$store.dispatch(
+          "updateDragPosition",
+          mouseEvent.pageX - halfOfLocal
+        );
       }
     }
   },
@@ -36,8 +39,8 @@ export default {
     width() {
       return this.$store.getters.windowWidth;
     },
-    currentPosition() {
-      return this.$store.getters.currentPosition;
+    dragPosition() {
+      return this.$store.getters.dragPosition;
     }
   },
   watch: {
@@ -45,14 +48,10 @@ export default {
       this.spaceFromLeftForLine =
         this.spaceFromLeftForLine * (width / this.windowWidth);
       this.windowWidth = width;
-      this.$store.dispatch(
-        "updateCurrentPosition",
-        this.spaceFromLeftForLine + this.$refs.zoneTimeLine.clientWidth / 2
-      );
+      this.$store.dispatch("updateDragPosition", this.spaceFromLeftForLine);
     },
-    currentPosition(position) {
-      this.spaceFromLeftForLine =
-        position - this.$refs.zoneTimeLine.clientWidth / 4;
+    dragPosition(dragPosition) {
+      this.spaceFromLeftForLine = dragPosition;
     }
   }
 };
@@ -70,7 +69,7 @@ export default {
   left: 0;
   width: 200%;
   height: 100%;
-  z-index: 3;
+  z-index: 10;
 }
 .overlay:hover {
   cursor: pointer;

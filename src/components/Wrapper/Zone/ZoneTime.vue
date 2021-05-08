@@ -17,7 +17,7 @@ export default {
   props: ["timeZone", "startingDate"],
   data() {
     return {
-      quarter: 192
+      quarter: undefined
     };
   },
   computed: {
@@ -27,7 +27,7 @@ export default {
       return updatedTime.format("HH:mm");
     },
     dragPosition() {
-      return this.$store.getters.dragPosition;
+      return this.$store.getters.dragPosition + window.innerWidth;
     }
   },
   watch: {

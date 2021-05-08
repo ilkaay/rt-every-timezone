@@ -20,9 +20,6 @@ import moment from "moment";
 export default {
   props: ["startingDate", "timeZone"],
   components: { ZoneDate },
-  mounted() {
-    this.$store.dispatch("updateDragPosition", this.dragPosition + 0.01);
-  },
   methods: {
     generateDayDate(index) {
       return moment().add(index, "days")._d;
@@ -42,8 +39,8 @@ export default {
   watch: {
     dragPosition(dragPosition) {
       for (const day of this.$refs.day) {
-        dragPosition < day.getClientRects()[0].right &&
-        dragPosition >= day.getClientRects()[0].left
+        dragPosition + window.innerWidth < day.getClientRects()[0].right &&
+        dragPosition + window.innerWidth >= day.getClientRects()[0].left
           ? day.classList.add("active")
           : day.classList.remove("active");
       }
