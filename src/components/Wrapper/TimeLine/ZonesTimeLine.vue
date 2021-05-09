@@ -57,10 +57,10 @@ export default {
     },
     dragPosition(dragPosition) {
       this.spaceFromLeftForLine = dragPosition;
+      const quarter = this.$store.getters.quarter;
       if (!quarter) {
         return;
       }
-      const quarter = this.$store.getters.quarter;
       const startingDate = this.$store.getters.startingDate;
       const updatedUnix =
         moment(startingDate)
