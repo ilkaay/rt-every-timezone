@@ -2,7 +2,7 @@
   <div class="days mt-2" :style="{ left: slideLeft + 'px' }">
     <div
       ref="day"
-      class="day dafault rounded-pill"
+      class="day default rounded-pill"
       v-for="index in 6"
       :key="index"
     >
@@ -18,7 +18,7 @@
 import ZoneDate from "./ZoneDate";
 import moment from "moment";
 export default {
-  props: ["startingDate", "timeZone"],
+  props: ["timeZone"],
   components: { ZoneDate },
   methods: {
     generateDayDate(index) {
@@ -27,7 +27,9 @@ export default {
   },
   computed: {
     slideLeft() {
-      const timestampOfStartingDate = moment.unix(this.startingDate);
+      const timestampOfStartingDate = moment.unix(
+        moment(this.$store.getters.startingDate).utc(this.timeZone)
+      );
       const utcOffsetInHours =
         moment.tz.zone(this.timeZone).utcOffset(timestampOfStartingDate) / 60;
       return utcOffsetInHours * (this.$store.getters.windowWidth / 96);
@@ -39,7 +41,7 @@ export default {
   watch: {
     dragPosition(dragPosition) {
       for (const day of this.$refs.day) {
-        dragPosition + window.innerWidth < day.getClientRects()[0].right &&
+        dragPosition + window.innerWidth <= day.getClientRects()[0].right &&
         dragPosition + window.innerWidth >= day.getClientRects()[0].left
           ? day.classList.add("active")
           : day.classList.remove("active");
@@ -75,7 +77,7 @@ export default {
     #2d46c1 100%
   ) !important;
 }
-.dafault {
+.default {
   background: linear-gradient(
     to right,
     #24273f 0%,

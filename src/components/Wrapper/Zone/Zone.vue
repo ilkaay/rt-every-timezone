@@ -10,21 +10,13 @@
         :city="zoneInfo.city"
         :GMT="zoneInfo.GMT"
       ></zone-info>
-      <zone-time
-        :timeZone="zoneInfo.timeZone"
-        :startingDate="timeZoneStartingDate(zoneInfo.timeZone)"
-      ></zone-time>
-      <zone-days
-        :timeZone="zoneInfo.timeZone"
-        :startingDate="timeZoneStartingDate(zoneInfo.timeZone)"
-      >
-      </zone-days>
+      <zone-time :timeZone="zoneInfo.timeZone"></zone-time>
+      <zone-days :timeZone="zoneInfo.timeZone"> </zone-days>
     </div>
   </div>
 </template>
 
 <script>
-import moment from "moment";
 import ZoneInfo from "./ZoneInfo";
 import ZoneTime from "./ZoneTime";
 import ZoneDays from "./ZoneDays";
@@ -33,11 +25,6 @@ export default {
     ZoneDays,
     ZoneInfo,
     ZoneTime
-  },
-  methods: {
-    timeZoneStartingDate(timeZone) {
-      return moment(this.$store.getters.startingDate).utc(timeZone);
-    }
   }
 };
 </script>

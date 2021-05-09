@@ -154,7 +154,6 @@ export const store = new Vuex.Store({
     ],
     startingDate: moment().format("yyyy/MM/DD"),
     dragPosition: undefined,
-    currentPosition: undefined,
     windowWidth: window.innerWidth,
     quarter: undefined
   },
@@ -167,9 +166,6 @@ export const store = new Vuex.Store({
     },
     dragPosition: state => {
       return state.dragPosition;
-    },
-    currentPosition: state => {
-      return state.currentPosition;
     },
     windowWidth: state => {
       return state.windowWidth;
@@ -185,9 +181,6 @@ export const store = new Vuex.Store({
     updateWindowWidth({ commit }, payload) {
       commit("setWindowWidth", payload);
     },
-    updateCurrentPosition({ commit }, payload) {
-      commit("setCurrentPosition", payload);
-    },
     updateQuarter({ commit }, payload) {
       commit("setQuarter", payload);
     }
@@ -198,9 +191,6 @@ export const store = new Vuex.Store({
     },
     setWindowWidth(state, payload) {
       state.windowWidth = payload;
-    },
-    setCurrentPosition(state, payload) {
-      state.currentPosition = payload;
     },
     setQuarter(state, payload) {
       state.quarter = payload;

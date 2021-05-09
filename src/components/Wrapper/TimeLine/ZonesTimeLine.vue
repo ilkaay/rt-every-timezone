@@ -1,8 +1,8 @@
 <template>
   <div
-    ref="zoneTimeLine"
+    ref="zoneTimeLineWrapper"
     :style="{ left: spaceFromLeftForLine + 'px' }"
-    class="badge overlay mt-2"
+    class="overlay badge mt-2"
     @mousedown="dragging = true"
     @mousemove="doDrag"
     @mouseup="dragging = false"
@@ -11,7 +11,7 @@
       <div>Your local time</div>
       <div class="mt-2">{{ localTime }}</div>
     </div>
-    <div ref="line" class="line"></div>
+    <div class="line"></div>
   </div>
 </template>
 <script>
@@ -28,12 +28,8 @@ export default {
   methods: {
     doDrag(mouseEvent) {
       if (this.dragging) {
-        const halfOfLocal = this.$refs.zoneTimeLine.clientWidth / 2;
-        this.spaceFromLeftForLine = mouseEvent.pageX - halfOfLocal;
-        this.$store.dispatch(
-          "updateDragPosition",
-          mouseEvent.pageX - halfOfLocal
-        );
+        this.spaceFromLeftForLine = mouseEvent.pageX - this.windowWidth;
+        this.$store.dispatch("updateDragPosition", this.spaceFromLeftForLine);
       }
     }
   },
@@ -43,9 +39,6 @@ export default {
     },
     dragPosition() {
       return this.$store.getters.dragPosition;
-    },
-    quarter() {
-      return this.$store.getters.quarter;
     }
   },
   watch: {
@@ -62,36 +55,34 @@ export default {
         return;
       }
       const startingDate = this.$store.getters.startingDate;
-      const updatedUnix =
+      const updatedTimeStamp =
         moment(startingDate)
           .parseZone()
           .unix() +
         quarter * 60 * 15;
-      const updatedTime = moment.unix(updatedUnix);
-      console.log("updated unix: ", updatedUnix);
-      console.log("updated time: ", updatedTime);
+      const updatedTime = moment.unix(updatedTimeStamp);
       this.localTime = updatedTime.format("HH:mm");
     }
   }
 };
 </script>
 <style scoped>
-.line {
-  width: 0.2rem;
-  position: absolute;
-  left: 50%;
-  height: 100%;
-}
 .overlay {
   background-color: transparent;
   position: absolute;
   left: 0;
   width: 200%;
   height: 100%;
-  z-index: 10;
+  z-index: 3;
 }
 .overlay:hover {
   cursor: pointer;
+}
+.line {
+  width: 0.2rem;
+  position: absolute;
+  left: 50%;
+  height: 100%;
 }
 * {
   background-color: #0466c8;
