@@ -14,12 +14,16 @@
 import moment from "moment";
 import "moment-timezone";
 export default {
-  props: ["timeZone", "startingDate"],
+  props: ["timeZone"],
   computed: {
     zoneTime() {
       const quarter = this.$store.getters.quarter;
-      const updatedUnix = this.startingDate.unix() + quarter * 60 * 15;
-      const updatedTime = moment.unix(updatedUnix).tz(this.timeZone);
+      const updatedTimeStamp =
+        moment(this.$store.getters.startingDate)
+          .utc(this.timeZone)
+          .unix() +
+        quarter * 60 * 15;
+      const updatedTime = moment.unix(updatedTimeStamp).tz(this.timeZone);
       return updatedTime.format("HH:mm");
     },
     dragPosition() {
