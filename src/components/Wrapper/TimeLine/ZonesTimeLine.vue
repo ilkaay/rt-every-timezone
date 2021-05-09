@@ -9,18 +9,20 @@
   >
     <div class="d-inline-block rounded-3 p-2">
       <div>Your local time</div>
-      <div class="mt-2">time</div>
+      <div class="mt-2">{{ localTime }}</div>
     </div>
     <div ref="line" class="line"></div>
   </div>
 </template>
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
       dragging: false,
       spaceFromLeftForLine: window.innerWidth / 2,
-      windowWidth: window.innerWidth
+      windowWidth: window.innerWidth,
+      localTime: moment().format("HH:mm")
     };
   },
   methods: {
@@ -41,6 +43,9 @@ export default {
     },
     dragPosition() {
       return this.$store.getters.dragPosition;
+    },
+    quarter() {
+      return this.$store.getters.quarter;
     }
   },
   watch: {
@@ -52,6 +57,20 @@ export default {
     },
     dragPosition(dragPosition) {
       this.spaceFromLeftForLine = dragPosition;
+      if (!quarter) {
+        return;
+      }
+      const quarter = this.$store.getters.quarter;
+      const startingDate = this.$store.getters.startingDate;
+      const updatedUnix =
+        moment(startingDate)
+          .parseZone()
+          .unix() +
+        quarter * 60 * 15;
+      const updatedTime = moment.unix(updatedUnix);
+      console.log("updated unix: ", updatedUnix);
+      console.log("updated time: ", updatedTime);
+      this.localTime = updatedTime.format("HH:mm");
     }
   }
 };
