@@ -21,7 +21,8 @@ export default {
   },
   watch: {
     dragPosition(dragPosition) {
-      this.slideLeft = dragPosition < window.innerWidth / 2 ? false : true;
+      this.slideLeft =
+        dragPosition + window.innerWidth < window.innerWidth / 2 ? false : true;
     }
   }
 };
@@ -31,12 +32,12 @@ export default {
 .leftPosition {
   position: absolute;
   left: 1%;
-  transition: right 1s ease-in-out;
+  transition: left 1s ease-in-out;
 }
 .rightPosition {
   position: absolute;
   right: 1%;
-  transition: left 1s ease-in-out;
+  transition: right 1s ease-in-out;
 }
 .flag {
   width: 2rem;

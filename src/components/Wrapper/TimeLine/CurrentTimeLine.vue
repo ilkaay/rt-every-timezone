@@ -1,12 +1,12 @@
 <template>
   <div
-    :style="{ left: position + 'px' }"
-    class="currentTimeWrapper badge  mt-2"
-    ref="currentTimeWrapper"
+    :style="{ left: spaceFromLeftForLine + 'px' }"
+    class="currentTimeLineWrapper badge mt-2"
+    ref="currentTimeLineWrapper"
   >
     <div class="time d-inline-block rounded-3 p-2">
       <div>Current local time</div>
-      <div class="mt-2">{{ currentTime }}</div>
+      <div class="mt-2">{{ time }}</div>
     </div>
     <div class="line"></div>
   </div>
@@ -17,51 +17,47 @@ export default {
   data() {
     return {
       time: moment().format("HH:mm"),
-      position: undefined,
+      spaceFromLeftForLine: undefined,
       windowWidth: window.innerWidth
     };
   },
   mounted() {
-    this.setPosition();
+    this.setSpaceFromLeftForLine();
   },
   methods: {
-    setPosition() {
+    setSpaceFromLeftForLine() {
       const timeStampOfStartingDate = moment(this.$store.getters.startingDate)
         .parseZone()
         .unix();
       const timeStampOfNow = moment().unix();
       const differenceTimeStamp = timeStampOfNow - timeStampOfStartingDate;
       const differenceTimeStampInQuarter = differenceTimeStamp / 60 / 15;
-      const eachQuarterWidth = this.windowWidth / 384;
       const eachDayWidth = this.windowWidth / 4;
-      const wrapperWidth = this.$refs.currentTimeWrapper.clientWidth / 2;
-      this.position =
+      const eachQuarterWidth = this.windowWidth / 384;
+      this.spaceFromLeftForLine =
         differenceTimeStampInQuarter * eachQuarterWidth +
         eachDayWidth -
-        wrapperWidth;
-      this.$store.dispatch("updateCurrentPosition", this.position);
-      this.$store.dispatch("updateDragPosition", this.position);
+        this.windowWidth;
+      this.$store.dispatch("updateDragPosition", this.spaceFromLeftForLine);
     }
   },
   computed: {
-    currentTime() {
-      return moment().format("HH:mm");
-    },
     width() {
       return this.$store.getters.windowWidth;
     }
   },
   watch: {
     width(width) {
-      this.position = this.position * (width / this.windowWidth);
+      this.spaceFromLeftForLine =
+        this.spaceFromLeftForLine * (width / this.windowWidth);
       this.windowWidth = width;
-      this.$store.dispatch("updateCurrentPosition", this.position);
     }
   }
 };
 </script>
 <style scoped>
-.currentTimeWrapper {
+.currentTimeLineWrapper {
+  background-color: transparent;
   position: absolute;
   height: 100%;
   z-index: 2;
@@ -73,9 +69,8 @@ export default {
   left: 50%;
   height: 100%;
   z-index: 1;
-  background-color: #023e8a;
 }
-.time {
+* {
   background-color: #023e8a;
 }
 </style>
