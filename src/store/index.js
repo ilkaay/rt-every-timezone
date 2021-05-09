@@ -153,9 +153,10 @@ export const store = new Vuex.Store({
       }
     ],
     startingDate: moment().format("yyyy/MM/DD"),
-    dragPosition: window.innerWidth / 2,
-    currentPosition: "",
-    windowWidth: window.innerWidth
+    dragPosition: undefined,
+    currentPosition: undefined,
+    windowWidth: window.innerWidth,
+    quarter: undefined
   },
   getters: {
     zoneInfos: state => {
@@ -170,11 +171,11 @@ export const store = new Vuex.Store({
     currentPosition: state => {
       return state.currentPosition;
     },
-    lineX: state => {
-      return state.lineX;
-    },
     windowWidth: state => {
       return state.windowWidth;
+    },
+    quarter: state => {
+      return state.quarter;
     }
   },
   actions: {
@@ -186,6 +187,9 @@ export const store = new Vuex.Store({
     },
     updateCurrentPosition({ commit }, payload) {
       commit("setCurrentPosition", payload);
+    },
+    updateQuarter({ commit }, payload) {
+      commit("setQuarter", payload);
     }
   },
   mutations: {
@@ -197,6 +201,9 @@ export const store = new Vuex.Store({
     },
     setCurrentPosition(state, payload) {
       state.currentPosition = payload;
+    },
+    setQuarter(state, payload) {
+      state.quarter = payload;
     }
   }
 });

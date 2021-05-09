@@ -5,8 +5,8 @@
     ref="currentTimeWrapper"
   >
     <div class="time d-inline-block rounded-3 p-2">
-      <div>current local time</div>
-      <div class="mt-2">{{ time }}</div>
+      <div>Current local time</div>
+      <div class="mt-2">{{ currentTime }}</div>
     </div>
     <div class="line"></div>
   </div>
@@ -40,28 +40,22 @@ export default {
         eachDayWidth -
         wrapperWidth;
       this.$store.dispatch("updateCurrentPosition", this.position);
+      this.$store.dispatch("updateDragPosition", this.position);
     }
   },
   computed: {
     currentTime() {
-      return moment();
+      return moment().format("HH:mm");
     },
     width() {
       return this.$store.getters.windowWidth;
     }
   },
   watch: {
-    currentTime(time) {
-      this.time = time.format("HH:mm");
-      this.setPosition();
-    },
     width(width) {
       this.position = this.position * (width / this.windowWidth);
       this.windowWidth = width;
-      this.$store.dispatch(
-        "updateCurrentPosition",
-        this.position + this.$refs.currentTimeWrapper.clientWidth / 2
-      );
+      this.$store.dispatch("updateCurrentPosition", this.position);
     }
   }
 };
@@ -71,7 +65,7 @@ export default {
   position: absolute;
   height: 100%;
   z-index: 2;
-  width: 100%;
+  width: 200%;
 }
 .line {
   width: 0.2rem;

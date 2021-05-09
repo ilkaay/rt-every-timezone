@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg p-4 text-center">
+  <nav class="navbar navbar-expand-lg p-4">
     <img
       src="../../assets/logo-white-remoteteam_sky1mo.svg"
       style=" height: 3rem;"

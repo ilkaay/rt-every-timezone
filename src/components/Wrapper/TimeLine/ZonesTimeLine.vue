@@ -8,19 +8,21 @@
     @mouseup="dragging = false"
   >
     <div class="d-inline-block rounded-3 p-2">
-      <div>your local time</div>
-      <div class="mt-2">time</div>
+      <div>Your local time</div>
+      <div class="mt-2">{{ localTime }}</div>
     </div>
     <div ref="line" class="line"></div>
   </div>
 </template>
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
       dragging: false,
-      spaceFromLeftForLine: undefined,
-      windowWidth: window.innerWidth
+      spaceFromLeftForLine: window.innerWidth / 2,
+      windowWidth: window.innerWidth,
+      localTime: moment().format("HH:mm")
     };
   },
   methods: {
@@ -28,7 +30,10 @@ export default {
       if (this.dragging) {
         const halfOfLocal = this.$refs.zoneTimeLine.clientWidth / 2;
         this.spaceFromLeftForLine = mouseEvent.pageX - halfOfLocal;
-        this.$store.dispatch("updateDragPosition", mouseEvent.pageX);
+        this.$store.dispatch(
+          "updateDragPosition",
+          mouseEvent.pageX - halfOfLocal
+        );
       }
     }
   },
@@ -36,8 +41,11 @@ export default {
     width() {
       return this.$store.getters.windowWidth;
     },
-    currentPosition() {
-      return this.$store.getters.currentPosition;
+    dragPosition() {
+      return this.$store.getters.dragPosition;
+    },
+    quarter() {
+      return this.$store.getters.quarter;
     }
   },
   watch: {
@@ -45,14 +53,24 @@ export default {
       this.spaceFromLeftForLine =
         this.spaceFromLeftForLine * (width / this.windowWidth);
       this.windowWidth = width;
-      this.$store.dispatch(
-        "updateCurrentPosition",
-        this.spaceFromLeftForLine + this.$refs.zoneTimeLine.clientWidth / 2
-      );
+      this.$store.dispatch("updateDragPosition", this.spaceFromLeftForLine);
     },
-    currentPosition(position) {
-      this.spaceFromLeftForLine =
-        position - this.$refs.zoneTimeLine.clientWidth / 4;
+    dragPosition(dragPosition) {
+      this.spaceFromLeftForLine = dragPosition;
+      const quarter = this.$store.getters.quarter;
+      if (!quarter) {
+        return;
+      }
+      const startingDate = this.$store.getters.startingDate;
+      const updatedUnix =
+        moment(startingDate)
+          .parseZone()
+          .unix() +
+        quarter * 60 * 15;
+      const updatedTime = moment.unix(updatedUnix);
+      console.log("updated unix: ", updatedUnix);
+      console.log("updated time: ", updatedTime);
+      this.localTime = updatedTime.format("HH:mm");
     }
   }
 };
@@ -70,7 +88,7 @@ export default {
   left: 0;
   width: 200%;
   height: 100%;
-  z-index: 3;
+  z-index: 10;
 }
 .overlay:hover {
   cursor: pointer;
